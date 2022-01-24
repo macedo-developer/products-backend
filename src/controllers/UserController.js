@@ -1,3 +1,4 @@
+const { response } = require("express");
 const User = require("../models/User");
 
 module.exports = {
@@ -10,13 +11,33 @@ module.exports = {
       return console.err("Error in find all!", err);
     }
   },
-  async show(req, res) {
+  async showUser(req, res) {
     try {
       const user = await User.findAll({ where: { id: req.params.id } });
 
       return res.json(user);
     } catch (err) {
       return console.error("Error in find one", err);
+    }
+  },
+  async show(req, res) {
+    try {
+      const filter = req.query;
+
+      const name = filter.username;
+      const password = filter.password;
+
+      const user = await User.findAll({
+        where: { name: name, password: password },
+      });
+
+      if (user.length == 0) {
+        return res.status(400).json(user);
+      }
+
+      return res.json(user);
+    } catch (err) {
+      return console.error("Error in find user", err);
     }
   },
   async create(req, res) {

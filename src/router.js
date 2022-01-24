@@ -17,7 +17,8 @@ routes.post("/products", ProductController.create);
 routes.put("/products/:id", ProductController.update);
 
 routes.get("/users", UserController.list);
-routes.get("/users/:id", UserController.show);
+routes.get("/user", UserController.show);
+routes.get("/users/:id", UserController.showUser);
 routes.post("/users", UserController.create);
 routes.put("/users/:id", UserController.update);
 
